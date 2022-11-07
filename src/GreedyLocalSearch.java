@@ -4,16 +4,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class GreedyLocalSearch {
-    int numberOfNodes;
+    Graph graph;
     final int DEGREE_LIMIT = 3;
-    public GreedyLocalSearch(int numberOfNodes) {
-        this.numberOfNodes = numberOfNodes;
+    public GreedyLocalSearch(Graph graph) {
+        this.graph = graph;
     }
 
-    public int[][] computeGreedyAdjMatrix(double[][] distMatrix) {
-        int [][] adjMatrix = new int[this.numberOfNodes][this.numberOfNodes];
-        for(int i=0; i<numberOfNodes; i++) {
-            int[] sortedIndex = getSortedIndexes(distMatrix[i]);
+    public int[][] computeGreedyAdjMatrix() {
+        int [][] adjMatrix = new int[graph.numberOfNodes][graph.numberOfNodes];
+        for(int i=0; i< graph.numberOfNodes; i++) {
+            int[] sortedIndex = getSortedIndexes(graph.distMatrix[i]);
             for (int pos: sortedIndex) {
                  if(i!=pos && adjMatrix[i][pos]==0 && Arrays.stream(adjMatrix[i]).sum() <= DEGREE_LIMIT) {
                      adjMatrix[i][pos] = 1;

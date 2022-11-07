@@ -13,15 +13,18 @@ public class Application {
         Display.printCoordinates(networkMap);
         Graph greedyGraph = new Graph(numberOfNodes, networkMap);
         greedyGraph.calculateDistanceMatrix();
-        GreedyLocalSearch greedyLocalSearch = new GreedyLocalSearch(numberOfNodes);
-        greedyGraph.adjMatrix = greedyLocalSearch.computeGreedyAdjMatrix(greedyGraph.distMatrix);
+        GreedyLocalSearch greedyLocalSearch = new GreedyLocalSearch(greedyGraph);
+        greedyGraph.adjMatrix = greedyLocalSearch.computeGreedyAdjMatrix();
         greedyGraph.plotEdgesUsingAdjMatrix();
         Constraints constraints = new Constraints(numberOfNodes);
         constraints.balanceDiameter(greedyGraph.edges, greedyGraph.adjMatrix);
         double costUsingGreedy = greedyGraph.computeCost();
 
         Graph annealingGraph = new Graph(numberOfNodes, networkMap);
+        // We start with an existing graph, which works as an optimization
         annealingGraph.adjMatrix = greedyGraph.adjMatrix;
+        Annealing annealing = new Annealing(annealingGraph);
+        annealing.heuristicComputation();
 
 
     }
