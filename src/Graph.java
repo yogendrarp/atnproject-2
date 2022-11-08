@@ -58,6 +58,13 @@ public class Graph {
         }
     }
 
+    public Graph getShallowCopy(int [][] adjMatrix){
+        Graph shallowGraph =  new Graph(this.numberOfNodes, this.networkMap);
+        shallowGraph.distMatrix = this.distMatrix;
+        shallowGraph.adjMatrix = adjMatrix;
+        return shallowGraph;
+    }
+
     private double getDistanceBetweenPoints(int x1, int y1, int x2, int y2) {
         return Double.parseDouble
                 (df.format(Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2))));

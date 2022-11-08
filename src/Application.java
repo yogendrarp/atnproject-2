@@ -18,15 +18,15 @@ public class Application {
         greedyGraph.plotEdgesUsingAdjMatrix();
         Constraints constraints = new Constraints(numberOfNodes);
         constraints.balanceDiameter(greedyGraph.edges, greedyGraph.adjMatrix);
-        double costUsingGreedy = greedyGraph.computeCost();
+        double costByLocalGreedy = greedyGraph.computeCost();
+        System.out.printf("Cost by local greedy heuristic method %f%n", costByLocalGreedy);
 
-        Graph annealingGraph = new Graph(numberOfNodes, networkMap);
         // We start with an existing graph, which works as an optimization
-        annealingGraph.adjMatrix = greedyGraph.adjMatrix;
+        Graph annealingGraph = greedyGraph.getShallowCopy(greedyGraph.adjMatrix);
         Annealing annealing = new Annealing(annealingGraph);
         annealing.heuristicComputation();
-
-
+        double costByAnnealing = annealingGraph.computeCost();
+        System.out.printf("Cost by Annealing heuristic method %f%n", costByAnnealing);
     }
 
     static ArrayList<String> getPointsOnPlane(int numberOfNodes) {
