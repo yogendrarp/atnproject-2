@@ -60,11 +60,30 @@ public class Graph {
 
     public Graph getShallowCopy(int [][] adjMatrix){
         Graph shallowGraph =  new Graph(this.numberOfNodes, this.networkMap);
-        shallowGraph.distMatrix = this.distMatrix;
-        shallowGraph.adjMatrix = adjMatrix;
+        shallowGraph.distMatrix = cloneDoubleMatrix(this.distMatrix);
+        shallowGraph.adjMatrix = cloneIntMatrix(adjMatrix);
         return shallowGraph;
     }
 
+    public static double[][] cloneDoubleMatrix(double[][] src) {
+        double [][] dest = new double[src.length][src.length];
+        for(int i=0;i< src.length;i++) {
+            for (int j=0;j<src.length; j++) {
+                dest[i][j]=src[i][j];
+            }
+        }
+        return dest;
+    }
+
+    public static  int[][] cloneIntMatrix(int[][] src) {
+        int [][] dest = new int[src.length][src.length];
+        for(int i=0;i< src.length;i++) {
+            for (int j=0;j<src.length; j++) {
+                dest[i][j]=src[i][j];
+            }
+        }
+        return dest;
+    }
     private double getDistanceBetweenPoints(int x1, int y1, int x2, int y2) {
         return Double.parseDouble
                 (df.format(Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2))));

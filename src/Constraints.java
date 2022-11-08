@@ -3,17 +3,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Constraints {
-    final int DIAMETER_HARD_LIMIT = 4;
-    int numberOfNodes;
+    final static int DIAMETER_HARD_LIMIT = 4;
 
-    public Constraints(int numberOfNodes) {
-        this.numberOfNodes = numberOfNodes;
-    }
-
-    public void balanceDiameter(ArrayList<ArrayList<Integer>> edges, int[][] adjMatrix) {
+    static void balanceDiameter(ArrayList<ArrayList<Integer>> edges, int[][] adjMatrix, int numberOfNodes) {
         for(int i=0; i<numberOfNodes; i++) {
             for(int j=0; j<numberOfNodes; j++) {
-                int distance = computeDistanceUsingBFS(i, j, edges);
+                int distance = computeDistanceUsingBFS(i, j, edges, numberOfNodes);
                 if((i!=j && distance == 0) || (distance>DIAMETER_HARD_LIMIT)) {
                     adjMatrix[i][j] = 1;
                     adjMatrix[j][i] = 1;
@@ -24,7 +19,7 @@ public class Constraints {
         }
     }
 
-    private int computeDistanceUsingBFS(int startNode, int endNode, ArrayList<ArrayList<Integer>> edges) {
+    static int computeDistanceUsingBFS(int startNode, int endNode, ArrayList<ArrayList<Integer>> edges, int numberOfNodes) {
         Queue<Integer> nodeQueue = new LinkedList<>();
         int [] distance = new int[numberOfNodes];
         boolean [] visited = new boolean[numberOfNodes];

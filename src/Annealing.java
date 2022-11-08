@@ -10,8 +10,8 @@ public class Annealing {
     }
 
     public void heuristicComputation() {
-        int[][] optimisedMatrix = graph.adjMatrix.clone();
-        int[][] probableOptimizedMatrix = graph.adjMatrix.clone();
+        int[][] optimisedMatrix = Graph.cloneIntMatrix(graph.adjMatrix);
+        int[][] probableOptimizedMatrix = Graph.cloneIntMatrix(graph.adjMatrix);
         while (COOLDOWN > MAXCOOLDOWN) {
             for(int i=0; i< graph.numberOfNodes; i++) {
                 for(int j=0; j<i; j++) {
@@ -22,9 +22,9 @@ public class Annealing {
                             probableOptimizedMatrix[j][i] = 0;
                             Graph _tempGraph = graph.getShallowCopy(probableOptimizedMatrix);
                             _tempGraph.plotEdgesUsingAdjMatrix();
+                            Constraints.balanceDiameter(_tempGraph.edges, _tempGraph.adjMatrix, _tempGraph.numberOfNodes);
                             double _computedCost = _tempGraph.computeCost();
                             Graph _optimisedGraph = graph.getShallowCopy(optimisedMatrix);
-                            _optimisedGraph.adjMatrix = optimisedMatrix;
                             double _optimisedCost = _optimisedGraph.computeCost();
                             //Since this heuristic, we consider equal as well
                             boolean isWorthTheChange = Boolean.FALSE;
@@ -38,9 +38,9 @@ public class Annealing {
                                 }
                             }
                             if(isWorthTheChange) {
-                                optimisedMatrix = probableOptimizedMatrix.clone();
+                                optimisedMatrix = Graph.cloneIntMatrix(probableOptimizedMatrix);
                             } else {
-                                probableOptimizedMatrix = optimisedMatrix.clone();
+                                probableOptimizedMatrix = Graph.cloneIntMatrix(optimisedMatrix);
                             }
                         }
                     }

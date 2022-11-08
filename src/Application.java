@@ -16,8 +16,7 @@ public class Application {
         GreedyLocalSearch greedyLocalSearch = new GreedyLocalSearch(greedyGraph);
         greedyGraph.adjMatrix = greedyLocalSearch.computeGreedyAdjMatrix();
         greedyGraph.plotEdgesUsingAdjMatrix();
-        Constraints constraints = new Constraints(numberOfNodes);
-        constraints.balanceDiameter(greedyGraph.edges, greedyGraph.adjMatrix);
+        Constraints.balanceDiameter(greedyGraph.edges, greedyGraph.adjMatrix, numberOfNodes);
         double costByLocalGreedy = greedyGraph.computeCost();
         System.out.printf("Cost by local greedy heuristic method %f%n", costByLocalGreedy);
 
