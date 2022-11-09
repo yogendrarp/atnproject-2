@@ -18,10 +18,11 @@ public class Application {
         greedyGraph.plotEdgesUsingAdjMatrix();
         Constraints.balanceDiameter(greedyGraph.edges, greedyGraph.adjMatrix, numberOfNodes);
         double costByLocalGreedy = greedyGraph.computeCost();
-        //System.out.println("Adjacency Matrix by using heuristic method is");
-        //Display.printMatrix(greedyGraph.adjMatrix);
+        System.out.println("____________________________________________________________________________________________");
+        System.out.println("Adjacency Matrix by using heuristic method is");
+        Display.printMatrix(greedyGraph.adjMatrix);
         System.out.printf("Cost by local greedy heuristic method %f%n", costByLocalGreedy);
-
+        System.out.println("____________________________________________________________________________________________");
         Graph basicGraph = new Graph(numberOfNodes, networkMap);
         basicGraph.distMatrix =  greedyGraph.distMatrix;
         BasicAdjacencyMatrix basicAdjacencyMatrix = new BasicAdjacencyMatrix(basicGraph);
@@ -34,16 +35,22 @@ public class Application {
         Annealing basicAnnealing = new Annealing(basicAnnealingGraph);
         basicAnnealing.heuristicComputation();
         double costOfBasicAnnealing = basicAnnealingGraph.computeCost();
-        System.out.printf("Cost by Annealing heuristic method %f%n", costOfBasicAnnealing);
+        System.out.println("____________________________________________________________________________________________");
+        System.out.println("Adjacency Matrix by using heuristic method without optimization");
+        Display.printMatrix(basicAnnealingGraph.adjMatrix);
+        System.out.printf("Cost by Annealing heuristic method with unoptimised initial adjacency matrix %f%n", costOfBasicAnnealing);
+        System.out.println("____________________________________________________________________________________________");
 
         // We start with an existing graph, which works as an optimization
         Graph annealingGraph = greedyGraph.getShallowCopy(greedyGraph.adjMatrix);
         Annealing annealing = new Annealing(annealingGraph);
         annealing.heuristicComputation();
         double costByAnnealing = annealingGraph.computeCost();
-        //System.out.println("Adjacency Matrix by using heuristic method is");
-       // Display.printMatrix(annealingGraph.adjMatrix);
+        System.out.println("____________________________________________________________________________________________");
+        System.out.println("Adjacency Matrix by using heuristic method is");
+        Display.printMatrix(annealingGraph.adjMatrix);
         System.out.printf("Cost by Annealing heuristic method %f%n", costByAnnealing);
+        System.out.println("____________________________________________________________________________________________");
     }
 
     static ArrayList<String> getPointsOnPlane(int numberOfNodes) {
