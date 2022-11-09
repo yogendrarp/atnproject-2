@@ -68,9 +68,7 @@ public class Graph {
     public static double[][] cloneDoubleMatrix(double[][] src) {
         double [][] dest = new double[src.length][src.length];
         for(int i=0;i< src.length;i++) {
-            for (int j=0;j<src.length; j++) {
-                dest[i][j]=src[i][j];
-            }
+            System.arraycopy(src[i], 0, dest[i], 0, src.length);
         }
         return dest;
     }

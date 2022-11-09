@@ -1,8 +1,10 @@
 import java.util.Arrays;
 
 public class Annealing {
-    double COOLDOWN = 100;
-    final double MAXCOOLDOWN = 0.001;
+    double temperature = 100;
+    final int BOLTZMANN_CONSTANT = 1; // Added to improve the readability
+    final double MIN_COOLDOWN = 0.00000001;
+    final double ALPHA = 0.9;
     Graph graph;
 
     public Annealing(Graph graph) {
@@ -12,7 +14,7 @@ public class Annealing {
     public void heuristicComputation() {
         int[][] optimisedMatrix = Graph.cloneIntMatrix(graph.adjMatrix);
         int[][] probableOptimizedMatrix = Graph.cloneIntMatrix(graph.adjMatrix);
-        while (COOLDOWN > MAXCOOLDOWN) {
+        while (temperature > MIN_COOLDOWN) {
             for(int i=0; i< graph.numberOfNodes; i++) {
                 for(int j=0; j<i; j++) {
                     if (probableOptimizedMatrix[i][j]==1) {
@@ -32,8 +34,8 @@ public class Annealing {
                             if(0 <= costReduction) {
                                 isWorthTheChange = Boolean.TRUE;
                             } else {
-                                double odds = Math.exp(costReduction/COOLDOWN*-1);
-                                if(odds>=0.9) {
+                                double acceptance = Math.exp(costReduction/(BOLTZMANN_CONSTANT* temperature)*-1);
+                                if(acceptance>=0.9) {
                                     isWorthTheChange = Boolean.TRUE;
                                 }
                             }
@@ -47,7 +49,7 @@ public class Annealing {
                 }
             }
             //Reduce the temperature
-            COOLDOWN/=10;
+            temperature *= ALPHA;
         }
         graph.adjMatrix = optimisedMatrix;
     }

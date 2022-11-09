@@ -11,5 +11,20 @@ public class Display {
                 System.out.print("\t");
             }
         }
+        System.out.println();
+    }
+
+    static void printMatrix(int[][] matrix){
+        for(int i=0;i<matrix.length;i++){
+            System.out.print("[");
+            for(int j=0;j<matrix.length;j++){
+                System.out.printf("%d",matrix[i][j]);
+                if(j != matrix.length-1) {
+                    System.out.print(",");
+                }
+            }
+            System.out.print("]");
+            System.out.println();
+        }
     }
 }
