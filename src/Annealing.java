@@ -27,6 +27,8 @@ public class Annealing {
                             Constraints.balanceDiameter(_tempGraph.edges, _tempGraph.adjMatrix, _tempGraph.numberOfNodes);
                             double _computedCost = _tempGraph.computeCost();
                             Graph _optimisedGraph = graph.getShallowCopy(optimisedMatrix);
+                            _optimisedGraph.plotEdgesUsingAdjMatrix();
+                            Constraints.balanceDiameter(_optimisedGraph.edges, _optimisedGraph.adjMatrix, _optimisedGraph.numberOfNodes);
                             double _optimisedCost = _optimisedGraph.computeCost();
                             //Since this heuristic, we consider equal as well
                             boolean isWorthTheChange = Boolean.FALSE;
